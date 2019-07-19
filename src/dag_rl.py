@@ -41,19 +41,21 @@ roboschool_problem = 'reacher'
 # =============================================================================
 # functions
 # =============================================================================
-
-
-# def is_hpo_enabled():
-#     """check if hyper-parameter optimization is enabled in the config
-#     """
-#     hpo_enabled = False
-#     if "job_level" in config and \
-#             "run_hyperparameter_opt" in config["job_level"]:
-#         run_hpo_config = config["job_level"]["run_hyperparameter_opt"]
-#         if run_hpo_config.lower() == "yes":
-#             hpo_enabled = True
-#     return hpo_enabled
-
+import sagemaker
+import boto3
+import sys
+import os
+import glob
+import re
+import subprocess
+# from IPython.display import HTML, Markdown
+import time
+from time import gmtime, strftime
+sys.path.append("common")
+from misc import get_execution_role, wait_for_s3_object
+from docker_utils import build_and_push_docker_image
+from sagemaker.rl import RLEstimator, RLToolkit, RLFramework
+from markdown_helper import generate_help_for_s3_endpoint_permissions, create_s3_endpoint_manually
 
 def get_sagemaker_role_arn(role_name, region_name):
     iam = boto3.client('iam', region_name=region_name)
