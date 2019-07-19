@@ -70,9 +70,9 @@ def get_sagemaker_role_arn(role_name, region_name):
 hook = AwsHook(aws_conn_id='airflow-sagemaker')
 region = "us-east-1"
 sess = hook.get_session(region_name=region)
-role = get_sagemaker_role_arn(
-    "AirflowSageMakerExecutionRole",
-    sess.region_name)
+role = get_execution_role()# get_sagemaker_role_arn(
+    # "AirflowSageMakerExecutionRole",
+    # sess.region_name)
 # container = get_image_uri(sess.region_name, 'factorization-machines')
 # hpo_enabled = is_hpo_enabled()
 
