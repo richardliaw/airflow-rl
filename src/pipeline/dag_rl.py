@@ -65,17 +65,20 @@ def get_sagemaker_role_arn(role_name, region_name):
 # setting up training, tuning and transform configuration
 # =============================================================================
 
-
+sess = sagemaker.session.Session()
 # set configuration for tasks
 hook = AwsHook(aws_conn_id='airflow-sagemaker')
 region = "us-east-1"
-sess = hook.get_session(region_name=region)
+# sess = hook.get_session(region_name=region)
 role = get_execution_role()# get_sagemaker_role_arn(
     # "AirflowSageMakerExecutionRole",
     # sess.region_name)
 # container = get_image_uri(sess.region_name, 'factorization-machines')
 # hpo_enabled = is_hpo_enabled()
 
+# print(sess.default_bucket())
+# print(hook.get_session())
+# import ipdb; ipdb.set_trace()
 cpu_or_gpu = "cpu" #'gpu' if instance_type.startswith('ml.p') else 'cpu'
 repository_short_name = "sagemaker-roboschool-ray-%s" % cpu_or_gpu
 docker_build_args = {
