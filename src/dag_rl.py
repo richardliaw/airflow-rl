@@ -1,47 +1,46 @@
 from __future__ import print_function
 import json
-import requests
-from datetime import datetime
+# import requests
+# from datetime import datetime
 
 # airflow operators
 import airflow
 from airflow.models import DAG
-from airflow.utils.trigger_rule import TriggerRule
-from airflow.operators.python_operator import BranchPythonOperator
+# from airflow.utils.trigger_rule import TriggerRule
+# from airflow.operators.python_operator import BranchPythonOperator
 from airflow.operators.dummy_operator import DummyOperator
-from airflow.operators.python_operator import PythonOperator
+# from airflow.operators.python_operator import PythonOperator
 
 # airflow sagemaker operators
 from airflow.contrib.operators.sagemaker_training_operator \
     import SageMakerTrainingOperator
-from airflow.contrib.operators.sagemaker_tuning_operator \
-    import SageMakerTuningOperator
-from airflow.contrib.operators.sagemaker_transform_operator \
-    import SageMakerTransformOperator
+# from airflow.contrib.operators.sagemaker_tuning_operator \
+#     import SageMakerTuningOperator
+# from airflow.contrib.operators.sagemaker_transform_operator \
+#     import SageMakerTransformOperator
 from airflow.contrib.hooks.aws_hook import AwsHook
 
 # sagemaker sdk
-import boto3
+# import boto3
 import sagemaker
-from sagemaker.amazon.amazon_estimator import get_image_uri
-from sagemaker.estimator import Estimator
-from sagemaker.tuner import HyperparameterTuner
+# from sagemaker.amazon.amazon_estimator import get_image_uri
+# from sagemaker.estimator import Estimator
+# from sagemaker.tuner import HyperparameterTuner
 
 # airflow sagemaker configuration
 from sagemaker.workflow.airflow import training_config
-from sagemaker.workflow.airflow import tuning_config
-from sagemaker.workflow.airflow import transform_config_from_estimator
+# from sagemaker.workflow.airflow import tuning_config
+# from sagemaker.workflow.airflow import transform_config_from_estimator
 
 # ml workflow specific
-from pipeline import prepare, preprocess
-import config as cfg
+# from pipeline import prepare, preprocess
+# import config as cfg
 
 roboschool_problem = 'reacher'
 
 # =============================================================================
 # functions
 # =============================================================================
-import sagemaker
 import boto3
 import sys
 import os
@@ -50,7 +49,7 @@ import re
 import subprocess
 # from IPython.display import HTML, Markdown
 import time
-from time import gmtime, strftime
+# from time import gmtime, strftime
 sys.path.append("common")
 from misc import get_execution_role, wait_for_s3_object
 from docker_utils import build_and_push_docker_image
@@ -67,9 +66,6 @@ def get_sagemaker_role_arn(role_name, region_name):
 # =============================================================================
 
 
-# read config file
-config = cfg.config
-
 # set configuration for tasks
 hook = AwsHook(aws_conn_id='airflow-sagemaker')
 region = "us-east-1"
@@ -78,9 +74,9 @@ role = get_sagemaker_role_arn(
     "AirflowSageMakerExecutionRole",
     sess.region_name)
 # container = get_image_uri(sess.region_name, 'factorization-machines')
-hpo_enabled = is_hpo_enabled()
+# hpo_enabled = is_hpo_enabled()
 
-cpu_or_gpu = 'gpu' if instance_type.startswith('ml.p') else 'cpu'
+cpu_or_gpu = "cpu" #'gpu' if instance_type.startswith('ml.p') else 'cpu'
 repository_short_name = "sagemaker-roboschool-ray-%s" % cpu_or_gpu
 docker_build_args = {
     'CPU_OR_GPU': cpu_or_gpu,
@@ -121,7 +117,7 @@ estimator = RLEstimator(
 # train_config specifies SageMaker training configuration
 train_config = training_config(
     estimator=estimator)
-    # inputs=config["train_model"]["inputs"])
+# inputs=config["train_model"]["inputs"])
 
 # # create tuner
 # fm_tuner = HyperparameterTuner(
