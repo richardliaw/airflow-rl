@@ -119,7 +119,7 @@ estimator = RLEstimator(
 
 # train_config specifies SageMaker training configuration
 train_config = training_config(
-    estimator=estimator)
+    estimator=estimator, inputs=[])
 # inputs=config["train_model"]["inputs"])
 
 # # create tuner
