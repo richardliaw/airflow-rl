@@ -50,11 +50,10 @@ import subprocess
 # from IPython.display import HTML, Markdown
 import time
 # from time import gmtime, strftime
-sys.path.append("common")
-from misc import get_execution_role, wait_for_s3_object
-from docker_utils import build_and_push_docker_image
+from smrl_common.misc import get_execution_role, wait_for_s3_object
+from smrl_common.docker_utils import build_and_push_docker_image
 from sagemaker.rl import RLEstimator, RLToolkit, RLFramework
-from markdown_helper import generate_help_for_s3_endpoint_permissions, create_s3_endpoint_manually
+from smrl_common.markdown_helper import generate_help_for_s3_endpoint_permissions, create_s3_endpoint_manually
 
 def get_sagemaker_role_arn(role_name, region_name):
     iam = boto3.client('iam', region_name=region_name)

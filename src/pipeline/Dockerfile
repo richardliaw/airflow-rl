@@ -35,6 +35,8 @@ RUN pip install sagemaker-containers --upgrade
 
 RUN pip install roboschool==1.0.46
 
+RUN git clone https://github.com/richardliaw/sagemaker-rl-common.git && cd sagemaker-rl-common && pip install -e .
+
 ENV PYTHONUNBUFFERED 1
 
 ############################################

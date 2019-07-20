@@ -7,9 +7,7 @@ from ray.tune import run_experiments
 from ray.tune.registry import register_env
 import roboschool
 
-import sys
-sys.path.append("common")
-from sagemaker_rl.ray_launcher import SageMakerRayLauncher
+from smrl_common.sagemaker_rl.ray_launcher import SageMakerRayLauncher
 
 
 def create_environment(env_config):
