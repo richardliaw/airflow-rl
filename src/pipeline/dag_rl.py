@@ -120,7 +120,7 @@ estimator = RLEstimator(
 # train_config specifies SageMaker training configuration
 train_config = training_config(
     estimator=estimator,
-    inputs=["s3://sagemaker-us-east-1-450145409201/sagemaker/DEMO-pytorch-mnist"])  # MOCK
+    inputs="s3://sagemaker-us-east-1-450145409201/sagemaker/DEMO-pytorch-mnist")  # MOCK
 # inputs=config["train_model"]["inputs"])
 
 # # create tuner
