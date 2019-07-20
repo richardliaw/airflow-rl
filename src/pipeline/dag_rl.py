@@ -119,7 +119,8 @@ estimator = RLEstimator(
 
 # train_config specifies SageMaker training configuration
 train_config = training_config(
-    estimator=estimator, inputs=[])
+    estimator=estimator,
+    inputs=["s3://sagemaker-us-east-1-450145409201/sagemaker/DEMO-pytorch-mnist"])  # MOCK
 # inputs=config["train_model"]["inputs"])
 
 # # create tuner
@@ -168,28 +169,6 @@ init = DummyOperator(
     task_id='start',
     dag=dag
 )
-
-# # preprocess the data
-# preprocess_task = PythonOperator(
-#     task_id='preprocessing',
-#     dag=dag,
-#     provide_context=False,
-#     python_callable=preprocess.preprocess,
-#     op_kwargs=config["preprocess_data"])
-
-# # prepare the data for training
-# prepare_task = PythonOperator(
-#     task_id='preparing',
-#     dag=dag,
-#     provide_context=False,
-#     python_callable=prepare.prepare,
-#     op_kwargs=config["prepare_data"]
-# )
-
-# branching = BranchPythonOperator(
-#     task_id='branching',
-#     dag=dag,
-#     python_callable=lambda: "model_tuning" if hpo_enabled else "model_training")
 
 # launch sagemaker training job and wait until it completes
 train_model_task = SageMakerTrainingOperator(
